@@ -1,23 +1,39 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
+import { PrismaService } from 'src/database/PrismaService';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UserService {
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  async create({ name, email, password }: CreateUserDto) {
+    try {
+      const data = new CreateUserDto(name, email, password);
+
+      return await new PrismaService().user.create({
+        data
+      })
+    } catch (err) {
+      throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
+    }
+
   }
 
-  findAll() {
-    return `This action returns all user`;
+  async findAll() {
+    return await new PrismaService().user.findMany({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: number) {
+    return await new PrismaService().user.findUnique({ where: { id } });
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: number, data: UpdateUserDto) {
+    return true;
+    // return await new PrismaService().user.update({ where: { id }, data }).catch((err) => {
+    //   throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
+    // });
+
+
   }
 
   remove(id: number) {
