@@ -8,12 +8,12 @@ export class UserDeleteController {
     @HttpCode(202)
     @Delete('delete/:id')
     deleteById(@Param('id') id: string) {
-        return this.userDeleteService.deleteById(+id);
+        // return this.userDeleteService.deleteById(+id);
     }
 
     @HttpCode(202)
     @Delete('destroyer')
     destroyer() {
-        return this.userDeleteService.destroyer();
+        //  return this.userDeleteService.destroyer();
     }
 }

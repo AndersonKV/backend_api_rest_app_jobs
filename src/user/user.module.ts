@@ -14,13 +14,17 @@ import { UserUpdateController } from './controllers/user.update.controller';
   controllers: [
     UserCreateController,
     UserDeleteController,
+    UserUpdateController,
     UserFindController,
-    UserUpdateController],
+  ],
   providers: [
     UserCreateService,
     UserFindService,
-    UserUpdateService,
     UserDeleteService,
-    IsEmailUpdateAlreadyExistConstraint, PrismaService]
+    UserUpdateService,
+    IsEmailUpdateAlreadyExistConstraint,
+    PrismaService]
+
 })
+
 export class UserModule { }

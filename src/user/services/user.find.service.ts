@@ -1,14 +1,12 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { Prisma, User } from '@prisma/client';
-import { PrismaService } from '../../database/PrismaService';
-import { CreateUserDto } from '../dto/create-user.dto';
-import { UpdateUserDto } from '../dto/update-user.dto';
-import { IUserCreateService } from '../repositories/user.create.repository';
+
 import { UserFindRepository } from '../repositories/user.find.repository';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/database/PrismaService';
 
 @Injectable()
 export class UserFindService implements UserFindRepository {
-    constructor(private prisma: PrismaService) { }
+    constructor(private prisma: PrismaService) {
+    }
 
     async findAll() {
         return await this.prisma.user.findMany({});
@@ -18,10 +16,5 @@ export class UserFindService implements UserFindRepository {
             throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
         });
     }
-
-
-
-
-
 
 }
