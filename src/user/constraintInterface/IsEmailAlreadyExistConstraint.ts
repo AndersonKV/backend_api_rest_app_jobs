@@ -5,12 +5,9 @@ import { PrismaService } from "src/database/PrismaService";
 @ValidatorConstraint({ async: true })
 @Injectable()
 export class IsEmailAlreadyExistConstraint implements ValidatorConstraintInterface {
-    validate(email: string, args: ValidationArguments) {
-        return new PrismaService().user.findUnique({ where: { email } }).then(emailExistis => {
-            if (emailExistis) {
-                return false;
-            }
-
+    async validate(email: string, args: ValidationArguments) {
+        return await new PrismaService().user.findUnique({ where: { email } }).then(emailExistis => {
+            if (emailExistis) return false;
             return true
 
         })

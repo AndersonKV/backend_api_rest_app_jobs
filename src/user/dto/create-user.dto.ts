@@ -1,12 +1,10 @@
 import { MinLength, IsEmail, IsDate, ValidationArguments, registerDecorator, ValidationOptions, IsNotEmpty, NotContains, Length, Min, IsEmpty } from "class-validator";
-import { IsEmailAlreadyExist } from "../ValidatorConstraintInterface/IsEmailAlreadyExistConstraint";
 import { Transform } from 'class-transformer';
+import { IsEmailAlreadyExist } from "../constraintInterface/IsEmailAlreadyExistConstraint";
 
 
 
 export class CreateUserDto {
-    id: number;
-
     @IsNotEmpty({ message: 'Nome não pode ser vazio' })
     @Length(1, 60, { message: 'Nome precisa ter entre 1 e 60 caracteres' })
     @Transform(({ value }) => value.toLowerCase().trim())
