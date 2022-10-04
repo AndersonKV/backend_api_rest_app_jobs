@@ -8,13 +8,13 @@ export class UserFindController {
     @HttpCode(202)
     @Get()
     findAll() {
-        // return this.userFindService.findAll();
+        return this.userFindService.findAll();
     }
 
     @HttpCode(202)
     @Get(':id')
     findById(@Param('id') id: string) {
-        // return this.userFindService.findById(+id);
+        return this.userFindService.findById(+id);
     }
 
 

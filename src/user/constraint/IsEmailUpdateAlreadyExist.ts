@@ -10,7 +10,12 @@ export class IsEmailUpdateAlreadyExistConstraint implements ValidatorConstraintI
 
     async validate(emailShouldUpdate: string, args: ValidationArguments) {
         try {
-            const { id } = args.object as UpdateUserDto;
+            const object = args.object as UpdateUserDto
+
+            const id = Number(object.id);
+
+            if (!id) throw new HttpException(`id vazio`, HttpStatus.BAD_REQUEST);
+
 
             const findUser = await this.prismaService.user.findUniqueOrThrow({ where: { id } }).catch(_ => {
                 throw new HttpException(`id ${id} não encontrado`, HttpStatus.BAD_REQUEST);

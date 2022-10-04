@@ -1,12 +1,14 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { UserRole } from '@prisma/client';
 import { Transform } from 'class-transformer';
-import { IsDate, IsEmail, IsEnum, isNotEmpty, IsNotEmpty, Length, MinLength, NotContains } from 'class-validator';
-import { IsConfirmPasswordEqualPassword } from '../constraintInterface/IsConfirmPasswordEqualPassword';
-import { IsEmailUpdateAlreadyExist } from '../constraintInterface/IsEmailUpdateAlreadyExist';
+import { IsDate, IsEmail, IsEnum, IsInt, isNotEmpty, IsNotEmpty, IsNumber, Length, Min, MinLength, NotContains } from 'class-validator';
+import { IsConfirmPasswordEqualPassword } from '../constraint/IsConfirmPasswordEqualPassword';
+import { IsEmailUpdateAlreadyExist } from '../constraint/IsEmailUpdateAlreadyExist';
 import { CreateUserDto } from './create-user.dto';
 
 export class UpdateUserDto {
+    @Min(1, { message: "id não pode estar vazio" })
+    @IsNumber({}, { message: 'o tipo do id é number' })
     id: number;
 
     @IsNotEmpty({ message: 'Nome não pode ser vazio' })
@@ -31,11 +33,22 @@ export class UpdateUserDto {
     @IsDate()
     readonly updated_at: Date;
 
-    constructor(name: string, email: string, password: string, confirm_password: string) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.confirm_password = confirm_password;
+    constructor(data: UpdateUserDto) {
+        const user = Object.assign({}, data);
+
+        this.name = user.name;
+        this.email = user.email;
+        this.password = user.password;
+        this.confirm_password = user.confirm_password;
         this.updated_at = new Date();
     }
+
+
+    // constructor(name: string, email: string, password: string, confirm_password: string) {
+    //     this.name = name;
+    //     this.email = email;
+    //     this.password = password;
+    //     this.confirm_password = confirm_password;
+    //     this.updated_at = new Date();
+    // }
 }

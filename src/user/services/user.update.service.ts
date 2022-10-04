@@ -9,13 +9,10 @@ export class UserUpdateService {
     }
 
     async update(dataDto: UpdateUserDto) {
-        const { id, confirm_password, email,
-            name, password, updated_at, } = dataDto;
+        const id = dataDto.id;
 
-        const data = {
-            id, confirm_password, email,
-            name, password, updated_at
-        }
+        const data = new UpdateUserDto(dataDto)
+        console.log({ data })
         return await this.prisma.user.update({ where: { id }, data })
     }
 }

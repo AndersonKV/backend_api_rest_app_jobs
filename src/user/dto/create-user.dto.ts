@@ -1,9 +1,9 @@
 import { MinLength, IsEmail, Matches, IsDate, registerDecorator, ValidationOptions, IsNotEmpty, NotContains, Length, Min, IsEmpty, IsEnum } from "class-validator";
 import { Transform } from 'class-transformer';
-import { IsEmailAlreadyExist } from "../constraintInterface/IsEmailAlreadyExist";
+import { IsEmailAlreadyExist } from "../constraint/IsEmailAlreadyExist";
 import { } from "@prisma/client";
 import { UserRole } from '@prisma/client';
-import { IsConfirmPasswordEqualPassword } from "../constraintInterface/IsConfirmPasswordEqualPassword";
+import { IsConfirmPasswordEqualPassword } from "../constraint/IsConfirmPasswordEqualPassword";
 
 
 export class CreateUserDto {
