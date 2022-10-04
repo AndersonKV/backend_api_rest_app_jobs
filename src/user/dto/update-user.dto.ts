@@ -40,15 +40,10 @@ export class UpdateUserDto {
         this.email = user.email;
         this.password = user.password;
         this.confirm_password = user.confirm_password;
+
         this.updated_at = new Date();
     }
 
 
-    // constructor(name: string, email: string, password: string, confirm_password: string) {
-    //     this.name = name;
-    //     this.email = email;
-    //     this.password = password;
-    //     this.confirm_password = confirm_password;
-    //     this.updated_at = new Date();
-    // }
+
 }
