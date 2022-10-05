@@ -11,6 +11,10 @@ export class UserFindService implements UserFindRepository {
     async findAll() {
         return await this.prisma.user.findMany({});
     }
+
+    async findByEmail(email: string) {
+        return await this.prisma.user.findUnique({ where: { email } });
+    }
     async findById(id: number) {
         return await this.prisma.user.findUnique({ where: { id } }).catch(err => {
             throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
