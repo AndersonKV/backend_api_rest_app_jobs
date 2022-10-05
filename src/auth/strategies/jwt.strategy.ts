@@ -6,7 +6,7 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 export class JwtStrategy extends PassportStrategy(Strategy) {
     constructor() {
         console.log('super validate')
-
+        console.log(ExtractJwt.fromAuthHeaderAsBearerToken())
         super({
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
             ignoreExpiration: false,
@@ -15,8 +15,10 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     }
 
     async validate(payload: any) {
-        console.log('validate')
-        console.log(payload)
-        return {};
+        return {
+            id: payload.sub,
+            email: payload.email,
+            name: payload.name,
+        };
     }
 }

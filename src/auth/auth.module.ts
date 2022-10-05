@@ -8,6 +8,7 @@ import { AuthSignInService } from './services/auth.signIn.service';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { LocalStrategy } from './strategies/local.strategy';
 import { LoginValidationMiddleware } from './middlewares/login-validate.middleware';
+import { JwtStrategy } from './strategies/jwt.strategy';
 
 @Module({
     imports: [UserModule,
@@ -18,7 +19,7 @@ import { LoginValidationMiddleware } from './middlewares/login-validate.middlewa
 
         }),],
     controllers: [AuthSignInController],
-    providers: [AuthSignInService, LocalStrategy, UserFindService, PrismaService]
+    providers: [AuthSignInService, LocalStrategy, UserFindService, PrismaService, JwtStrategy]
 })
 
 
