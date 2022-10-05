@@ -29,7 +29,6 @@ export class UpdateUserDto {
     @IsConfirmPasswordEqualPassword({ message: "senha de confirmação deve ser igual" })
     confirm_password: string;
 
-
     @IsDate()
     readonly updated_at: Date;
 

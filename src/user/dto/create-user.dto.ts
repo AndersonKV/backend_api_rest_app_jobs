@@ -31,19 +31,24 @@ export class CreateUserDto {
     @IsDate()
     readonly updated_at: Date;
 
-    @IsEnum(UserRole, { message: "só pode escolher entre usúario e compania" })
+    @IsEnum(UserRole, { message: "role só permite user ou company" })
     role: UserRole;
 
+    constructor(data: CreateUserDto) {
+        const user = Object.assign({}, data);
 
-    constructor(name: string, email: string, password: string, confirm_password: string, role: UserRole) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.confirm_password = confirm_password;
-        this.role = role
+        this.name = user.name;
+        this.email = user.email;
+        this.password = user.password;
+        this.confirm_password = user.confirm_password;
+        this.role = user.role;
+
         this.created_at = new Date();
         this.updated_at = new Date();
     }
+
+
+
 }
 
 

@@ -20,9 +20,52 @@ model User {
   updated_at DateTime
 
   role UserRole
+
+  matchings Matching[]
+  posts     Job[]
+
+  @@map("users")
 }
 
 enum UserRole {
   user
   company
+}
+
+model Job {
+  id               Int      @id @default(autoincrement())
+  title            String
+  remote           String
+  name_company     String
+  id_author        Int
+  techs            String[]
+  types_contract   String
+  size_company     String
+  experience_level String
+  expired_days     String
+  created_at       DateTime @default(now())
+  updated_at       DateTime @default(now())
+  salary           String
+  responsibilities String
+  requirements     String
+  benefits         String
+  avatar           String
+
+  matchings Matching[]
+  User      User       @relation(fields: [id_author], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@map("jobs")
+}
+
+model Matching {
+  id         Int      @id @default(autoincrement())
+  post       Job      @relation(fields: [id_job], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  matchings  User     @relation(fields: [id_user], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  id_user    Int
+  id_job     Int
+  id_author  Int
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+  @@map("matchings")
 }

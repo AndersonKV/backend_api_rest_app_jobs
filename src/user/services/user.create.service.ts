@@ -7,13 +7,11 @@ import { UserCreateRepositry } from '../repositories/user.create.repository';
 export class UserCreateService implements UserCreateRepositry {
     constructor(private prisma: PrismaService) { }
 
-    async create({ name, email, password, confirm_password, role }: CreateUserDto) {
+    async create(dataDto: CreateUserDto) {
         try {
-            const data = new CreateUserDto(name, email, password, confirm_password, role);
+            const data = new CreateUserDto(dataDto);
 
-            return await this.prisma.user.create({
-                data
-            })
+            return await this.prisma.user.create({ data });
         } catch (err) {
             throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
         }

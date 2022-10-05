@@ -7,8 +7,8 @@ import { UserFindService } from './services/user.find.service';
 import { UserUpdateService } from './services/user.update.service';
 import { UserDeleteService } from './services/user.delete.service';
 import { UserDeleteController } from './controllers/user.delete.controller';
-import { UserFindController } from './controllers/user.find.controller';
 import { UserUpdateController } from './controllers/user.update.controller';
+import { UserFindController } from './controllers/user.find.controller';
 
 @Module({
   controllers: [
