@@ -6,10 +6,17 @@ import { CreateJobDto } from '../dto/create-job.dto';
 export class JobDeleteService {
     constructor(private prisma: PrismaService) { }
 
-    async create(dataDto: CreateJobDto) {
+    async deleteById(id: number) {
         try {
+            return await this.prisma.job.delete({ where: { id } });
+        } catch (err) {
+            throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
+        }
+    }
 
-            //return await this.prisma.user.create({ data });
+    async destroyer() {
+        try {
+            return await this.prisma.job.deleteMany();
         } catch (err) {
             throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
         }

@@ -1,5 +1,17 @@
 -- CreateEnum
-CREATE TYPE "UserRole" AS ENUM ('user', 'company');
+CREATE TYPE "EnumUserRole" AS ENUM ('user', 'company');
+
+-- CreateEnum
+CREATE TYPE "EnumRemote" AS ENUM ('sim', 'nao');
+
+-- CreateEnum
+CREATE TYPE "EnumTypesContract" AS ENUM ('clt', 'pj');
+
+-- CreateEnum
+CREATE TYPE "EnumSizeCompany" AS ENUM ('pequena', 'media', 'grande');
+
+-- CreateEnum
+CREATE TYPE "EnumExperienceLevel" AS ENUM ('estagio', 'junior', 'pleno', 'senior');
 
 -- CreateTable
 CREATE TABLE "users" (
@@ -10,7 +22,7 @@ CREATE TABLE "users" (
     "confirm_password" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL,
     "updated_at" TIMESTAMP(3) NOT NULL,
-    "role" "UserRole" NOT NULL,
+    "role" "EnumUserRole" NOT NULL,
 
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );
@@ -19,17 +31,17 @@ CREATE TABLE "users" (
 CREATE TABLE "jobs" (
     "id" SERIAL NOT NULL,
     "title" TEXT NOT NULL,
-    "remote" TEXT NOT NULL,
+    "remote" "EnumRemote" NOT NULL,
     "name_company" TEXT NOT NULL,
     "id_author" INTEGER NOT NULL,
     "techs" TEXT[],
-    "types_contract" TEXT NOT NULL,
-    "size_company" TEXT NOT NULL,
-    "experience_level" TEXT NOT NULL,
-    "expired_days" TEXT NOT NULL,
+    "types_contract" "EnumTypesContract" NOT NULL,
+    "size_company" "EnumSizeCompany" NOT NULL,
+    "experience_level" "EnumExperienceLevel" NOT NULL,
+    "expired_days" INTEGER NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "salary" TEXT NOT NULL,
+    "salary" INTEGER NOT NULL,
     "responsibilities" TEXT NOT NULL,
     "requirements" TEXT NOT NULL,
     "benefits" TEXT NOT NULL,

@@ -6,13 +6,18 @@ import { CreateJobDto } from '../dto/create-job.dto';
 export class JobFindService {
     constructor(private prisma: PrismaService) { }
 
-    async create(dataDto: CreateJobDto) {
+    async findAll() {
         try {
-
-            //return await this.prisma.user.create({ data });
+            return await this.prisma.job.findMany();
         } catch (err) {
             throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
         }
+    }
+
+    async findById(id: number) {
+        return await this.prisma.job.findUniqueOrThrow({ where: { id } }).catch(_ => {
+            throw new HttpException('id ' + id + ' não encontrado', HttpStatus.BAD_REQUEST);
+        });
     }
 
 }

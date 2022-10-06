@@ -1,7 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode } from '@nestjs/common';
+import { Controller, Request, Post, Body, Patch, Param, Delete, HttpCode, createParamDecorator, HttpException, HttpStatus } from '@nestjs/common';
+import { User } from '@prisma/client';
+import { CurrentUser } from 'src/auth/decorator/current-user.decorator';
+import { UserPayload } from 'src/auth/services/auth.signIn.service';
 import { CreateJobDto } from '../dto/create-job.dto';
 import { UpdateJobDto } from '../dto/update-job.dto';
 import { JobCreateService } from '../services/job.create.service';
+
+
 
 @Controller('job')
 export class JobCreateController {
@@ -9,8 +14,9 @@ export class JobCreateController {
 
     @HttpCode(201)
     @Post('/create')
-    create(@Body() createJobDto: CreateJobDto) {
-        return this.jobCreateService.create(createJobDto);
+    create(@Request() req: any, @Body() createJobDto: CreateJobDto) {
+        const id = req.user.id;
+        return this.jobCreateService.create(id, createJobDto);
     }
 
 }

@@ -1,4 +1,4 @@
-import { Controller, Body, Patch, HttpCode } from '@nestjs/common';
+import { Controller, Request, Body, Patch, HttpCode } from '@nestjs/common';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { UserUpdateService } from '../services/user.update.service';
 
@@ -8,8 +8,9 @@ export class UserUpdateController {
 
     @HttpCode(201)
     @Patch()
-    update(@Body() updateUserDto: UpdateUserDto) {
-        return this.userUpdateService.update(updateUserDto);
+    update(@Request() req: any, @Body() updateUserDto: UpdateUserDto) {
+        const id = req.user.id;
+        return this.userUpdateService.update(id, updateUserDto);
     }
 
 }

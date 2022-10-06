@@ -9,7 +9,7 @@ import { User } from "@prisma/client";
 interface UserToken {
     access_token: string;
 }
-interface UserPayload {
+export interface UserPayload {
     sub: number;
     email: string;
     name: string;

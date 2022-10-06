@@ -1,14 +1,13 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { UserRole } from '@prisma/client';
+import { EnumUserRole } from '@prisma/client';
 import { Transform } from 'class-transformer';
-import { IsDate, IsEmail, IsEnum, IsInt, isNotEmpty, IsNotEmpty, IsNumber, Length, Min, MinLength, NotContains } from 'class-validator';
+import { IsDate, IsEmail, IsEmpty, IsEnum, IsInt, isNotEmpty, IsNotEmpty, IsNumber, Length, Min, MinLength, NotContains } from 'class-validator';
 import { IsConfirmPasswordEqualPassword } from '../constraint/IsConfirmPasswordEqualPassword';
 import { IsEmailUpdateAlreadyExist } from '../constraint/IsEmailUpdateAlreadyExist';
 import { CreateUserDto } from './create-user.dto';
 
 export class UpdateUserDto {
-    @Min(1, { message: "id não pode estar vazio" })
-    @IsNumber({}, { message: 'o tipo do id é number' })
+    @IsEmpty({ message: "id deve ficar vazio" })
     id: number;
 
     @IsNotEmpty({ message: 'Nome não pode ser vazio' })

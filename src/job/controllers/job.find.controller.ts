@@ -1,18 +1,19 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { CreateJobDto } from '../dto/create-job.dto';
 import { UpdateJobDto } from '../dto/update-job.dto';
+import { JobFindService } from '../services/job.find.service';
 
-@Controller('jobs')
+@Controller('job')
 export class JobFindController {
-    constructor(private readonly jobsService: any) { }
+    constructor(private readonly jobFindService: JobFindService) { }
 
     @Get()
     findAll() {
-        return this.jobsService.findAll();
+        return this.jobFindService.findAll();
     }
 
     @Get(':id')
     findOne(@Param('id') id: string) {
-        return this.jobsService.findOne(+id);
+        return this.jobFindService.findById(+id);
     }
 }

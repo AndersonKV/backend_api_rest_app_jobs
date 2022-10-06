@@ -19,7 +19,7 @@ model User {
   created_at DateTime
   updated_at DateTime
 
-  role UserRole
+  role EnumUserRole
 
   matchings Matching[]
   posts     Job[]
@@ -27,25 +27,25 @@ model User {
   @@map("users")
 }
 
-enum UserRole {
+enum EnumUserRole {
   user
   company
 }
 
 model Job {
-  id               Int      @id @default(autoincrement())
+  id               Int                 @id @default(autoincrement())
   title            String
-  remote           String
+  remote           EnumRemote
   name_company     String
   id_author        Int
   techs            String[]
-  types_contract   String
-  size_company     String
-  experience_level String
-  expired_days     String
-  created_at       DateTime @default(now())
-  updated_at       DateTime @default(now())
-  salary           String
+  types_contract   EnumTypesContract
+  size_company     EnumSizeCompany
+  experience_level EnumExperienceLevel
+  expired_days     Int
+  created_at       DateTime            @default(now())
+  updated_at       DateTime            @default(now())
+  salary           Int
   responsibilities String
   requirements     String
   benefits         String
@@ -57,13 +57,39 @@ model Job {
   @@map("jobs")
 }
 
+enum EnumRemote {
+  sim
+  nao
+}
+
+enum EnumTypesContract {
+  clt
+  pj
+}
+
+enum EnumSizeCompany {
+  pequena
+  media
+  grande
+}
+
+enum EnumExperienceLevel {
+  estagio
+  junior
+  pleno
+  senior
+}
+
 model Matching {
-  id         Int      @id @default(autoincrement())
-  post       Job      @relation(fields: [id_job], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  matchings  User     @relation(fields: [id_user], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  id_user    Int
-  id_job     Int
-  id_author  Int
+  id Int @id @default(autoincrement())
+
+  post      Job  @relation(fields: [id_job], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  matchings User @relation(fields: [id_user], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  id_user   Int
+  id_job    Int
+  id_author Int
+
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
 

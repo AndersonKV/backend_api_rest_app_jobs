@@ -2,7 +2,7 @@ import { MinLength, IsEmail, Matches, IsDate, registerDecorator, ValidationOptio
 import { Transform } from 'class-transformer';
 import { IsEmailAlreadyExist } from "../constraint/IsEmailAlreadyExist";
 import { } from "@prisma/client";
-import { UserRole } from '@prisma/client';
+import { EnumUserRole } from '@prisma/client';
 import { IsConfirmPasswordEqualPassword } from "../constraint/IsConfirmPasswordEqualPassword";
 
 
@@ -31,8 +31,8 @@ export class CreateUserDto {
     @IsDate()
     readonly updated_at: Date;
 
-    @IsEnum(UserRole, { message: "role só permite user ou company" })
-    role: UserRole;
+    @IsEnum(EnumUserRole, { message: "role só permite user ou company" })
+    role: EnumUserRole;
 
     constructor(data: CreateUserDto) {
         const user = Object.assign({}, data);
