@@ -1,9 +1,14 @@
 import { AuthGuard } from '@nestjs/passport';
 import { SignInDto } from '../dto/Sign-in.dto';
 import { AuthSignInService } from '../services/auth.signIn.service';
-import { Controller, Request, Post, UseGuards, HttpCode, Req } from '@nestjs/common';
+import { Controller, Request, Post, UseGuards, HttpCode, Req, createParamDecorator, ExecutionContext, Get } from '@nestjs/common';
 import { LocalAuthGuard } from '../guards/local-auth.guard';
 import { IsPublic } from '../decorator/is-public.decorator';
+import { User } from '@prisma/client';
+import { CurrentUser } from '../decorator/current-user.decorator';
+
+
+
 
 @Controller()
 export class AuthSignInController {
@@ -18,5 +23,8 @@ export class AuthSignInController {
     }
 
 
-
+    @Get('me')
+    getMe(@CurrentUser() user: User): User {
+        return user;
+    }
 }

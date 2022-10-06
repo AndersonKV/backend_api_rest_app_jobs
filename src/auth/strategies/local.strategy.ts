@@ -15,16 +15,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
 
     }
     validate(email: string, password: string) {
-        console.log('LocalStrategy')
-        return this.authService.validateUser(email, password);
+        return this.authService.signIn(email, password);
     }
-    // async validate(email: string, password: string): Promise<any> {
-    //     console.log(' LocalStrategy  ')
 
-    //     const user = await this.authService.signIn({ email, password });
-
-    //     if (!user) throw new UnauthorizedException('autenticação não autorizada');
-
-    //     return user;
-    // }
 }

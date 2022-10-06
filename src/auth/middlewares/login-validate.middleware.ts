@@ -4,17 +4,16 @@ import { NextFunction } from "express";
 
 export class LoginRequestBody {
     email: string;
-
     password: string;
 }
 
 @Injectable()
 export class LoginValidationMiddleware implements NestMiddleware {
     async use(req: Request, res: Response, next: NextFunction) {
-        console.log('LoginValidationMiddleware')
         const body = req.body as unknown as LoginRequestBody;
 
         const loginRequestBody = new LoginRequestBody();
+
         loginRequestBody.email = body.email;
         loginRequestBody.password = body.password;
 
