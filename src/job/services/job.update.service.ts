@@ -8,13 +8,15 @@ import { UpdateJobDto } from '../dto/update-job.dto';
 export class JobUpdateService {
     constructor(private prisma: PrismaService) { }
 
-    async update(id: number, dataDto: UpdateJobDto) {
+    async update(dataDto: UpdateJobDto) {
         try {
-            const props = { id, ...dataDto };
+            const { id } = dataDto;
 
-            const data = new UpdateJobDto(props) as unknown as Job;
+            const props = { ...dataDto } as Job;
 
-            // return await this.prisma.job.update({ where: { id }, data })
+            const data = new UpdateJobDto(props) as Job;
+
+            return await this.prisma.job.update({ where: { id }, data })
         } catch (err) {
             throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
         }

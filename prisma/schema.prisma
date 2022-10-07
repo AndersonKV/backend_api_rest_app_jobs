@@ -38,7 +38,7 @@ model Job {
   remote           EnumRemote
   name_company     String
   id_author        Int
-  techs            String[]
+  techs            String
   types_contract   EnumTypesContract
   size_company     EnumSizeCompany
   experience_level EnumExperienceLevel

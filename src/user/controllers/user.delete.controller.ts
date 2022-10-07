@@ -6,7 +6,7 @@ export class UserDeleteController {
     constructor(private readonly userDeleteService: UserDeleteService) { }
 
     @HttpCode(202)
-    @Delete('delete/:id')
+    @Delete(':id')
     deleteById(@Param('id') id: string) {
         // return this.userDeleteService.deleteById(+id);
     }
@@ -14,6 +14,6 @@ export class UserDeleteController {
     @HttpCode(202)
     @Delete('destroyer')
     destroyer() {
-        //  return this.userDeleteService.destroyer();
+        return this.userDeleteService.destroyer();
     }
 }

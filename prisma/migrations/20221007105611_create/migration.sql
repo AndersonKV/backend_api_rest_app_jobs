@@ -34,7 +34,7 @@ CREATE TABLE "jobs" (
     "remote" "EnumRemote" NOT NULL,
     "name_company" TEXT NOT NULL,
     "id_author" INTEGER NOT NULL,
-    "techs" TEXT[],
+    "techs" TEXT NOT NULL,
     "types_contract" "EnumTypesContract" NOT NULL,
     "size_company" "EnumSizeCompany" NOT NULL,
     "experience_level" "EnumExperienceLevel" NOT NULL,

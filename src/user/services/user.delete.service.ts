@@ -15,7 +15,7 @@ export class UserDeleteService implements UserDeleteRepository {
         })
     }
     async destroyer() {
-        await this.prisma.user.deleteMany({});
+        return await this.prisma.user.deleteMany();
     }
 
 

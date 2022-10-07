@@ -10,8 +10,7 @@ export class JobUpdateController {
 
     @Patch()
     update(@Request() req: any, @Body() updateJobDto: UpdateJobDto) {
-        const id = req.user.id;
-        return this.jobUpdateService.update(id, updateJobDto);
+        return this.jobUpdateService.update(updateJobDto);
     }
 
 

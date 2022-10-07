@@ -1,10 +1,13 @@
-import { IsDate, IsNotEmpty, Length, IsEmpty, IsEnum, IsNumber, IsString, IsNotEmptyObject, isNotEmpty } from "class-validator";
-import { Transform } from 'class-transformer';
+import { IsDate, IsNotEmpty, Length, IsEmpty, IsEnum, IsNumber, IsString, IsNotEmptyObject, isNotEmpty, ArrayMaxSize, ArrayMinSize, IsArray, ValidateNested, isEmpty } from "class-validator";
+import { Transform, Type } from 'class-transformer';
 import { Job } from "@prisma/client";
 import { EnumTypesContract, EnumExperienceLevel, EnumSizeCompany, EnumRemote } from '@prisma/client';
 
 
 export class CreateJobDto {
+    @IsEmpty({ message: "id deve ficar vazio" })
+    id: number
+
     @IsNotEmpty({ message: 'titulo não pode ser vazio' })
     @Length(1, 60, { message: 'titulo precisa ter entre 1 e 60 caracteres' })
     @Transform(({ value }) => value.toLowerCase().trim())
@@ -19,8 +22,8 @@ export class CreateJobDto {
     @IsEmpty({ message: "id_author deve ficar vazio" })
     id_author: number
 
-    @IsNotEmpty({ message: 'tech não pode ficar vazio' })
-    techs: string[]
+    @Length(1, 60, { message: 'tech não pode estar vazio' })
+    techs: string
 
     @IsEnum(EnumTypesContract, { message: "tipo de contrato dever ser, clt, pj" })
     types_contract: string;
@@ -72,6 +75,7 @@ export class CreateJobDto {
         this.requirements = job.requirements;
         this.benefits = job.benefits;
         this.avatar = job.avatar;
+        this.techs = job.techs;
 
         this.created_at = new Date();
         this.updated_at = new Date();
