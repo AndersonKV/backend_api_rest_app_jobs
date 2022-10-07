@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { PrismaService } from 'src/database/PrismaService';
-import { isIdUserExistConstraint } from './constraint/IsIdUserExist';
+import { isIdJobExistConstraint } from './constraint/isJobIdExist';
 import { JobCreateController } from './controllers/job.create.controller';
 import { JobDeleteController } from './controllers/job.delete.controller';
 import { JobFindController } from './controllers/job.find.controller';
@@ -12,6 +12,6 @@ import { JobUpdateService } from './services/job.update.service';
 
 @Module({
   controllers: [JobCreateController, JobDeleteController, JobUpdateController, JobFindController],
-  providers: [JobCreateService, JobFindService, JobDeleteService, JobUpdateService, PrismaService, isIdUserExistConstraint]
+  providers: [JobCreateService, JobFindService, JobDeleteService, JobUpdateService, PrismaService, isIdJobExistConstraint]
 })
 export class JobModule { }

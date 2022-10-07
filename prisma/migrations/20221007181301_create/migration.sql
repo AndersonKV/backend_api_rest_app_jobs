@@ -55,7 +55,6 @@ CREATE TABLE "matchings" (
     "id" SERIAL NOT NULL,
     "id_user" INTEGER NOT NULL,
     "id_job" INTEGER NOT NULL,
-    "id_author" INTEGER NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 

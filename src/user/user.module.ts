@@ -9,6 +9,7 @@ import { UserDeleteService } from './services/user.delete.service';
 import { UserDeleteController } from './controllers/user.delete.controller';
 import { UserUpdateController } from './controllers/user.update.controller';
 import { UserFindController } from './controllers/user.find.controller';
+import { isIdJobExistConstraint } from 'src/job/constraint/isJobIdExist';
 
 @Module({
   controllers: [
@@ -23,7 +24,7 @@ import { UserFindController } from './controllers/user.find.controller';
     UserDeleteService,
     UserUpdateService,
     IsEmailUpdateAlreadyExistConstraint,
-    PrismaService]
+    PrismaService, isIdJobExistConstraint]
 
 })
 

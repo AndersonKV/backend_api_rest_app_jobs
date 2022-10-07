@@ -2,11 +2,11 @@ import { PartialType } from '@nestjs/mapped-types';
 import { EnumRemote, EnumTypesContract, EnumSizeCompany, EnumExperienceLevel, Job } from '@prisma/client';
 import { Transform } from 'class-transformer';
 import { IsNotEmpty, Length, IsEnum, IsEmpty, IsNumber, IsDate } from 'class-validator';
-import { idExist } from '../constraint/IsIdUserExist';
+import { isJobIdExist } from '../constraint/isJobIdExist';
 import { CreateJobDto } from './create-job.dto';
 
 export class UpdateJobDto {
-    @idExist({ message: "id do job não foi encontrado" })
+    @isJobIdExist({ message: "id do job não foi encontrado" })
     id: number
 
     @IsNotEmpty({ message: 'titulo não pode ser vazio' })

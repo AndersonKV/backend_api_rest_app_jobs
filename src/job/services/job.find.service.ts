@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+
 import { PrismaService } from '../../database/PrismaService';
-import { CreateJobDto } from '../dto/create-job.dto';
 
 @Injectable()
 export class JobFindService {
@@ -8,7 +8,15 @@ export class JobFindService {
 
     async findAll() {
         try {
-            return await this.prisma.job.findMany();
+            return await this.prisma.job.findMany({
+                include: {
+                    matchings: {
+                        select: {
+                            user: true
+                        }
+                    }
+                }
+            });
         } catch (err) {
             throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
         }

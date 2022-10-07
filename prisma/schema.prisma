@@ -83,12 +83,11 @@ enum EnumExperienceLevel {
 model Matching {
   id Int @id @default(autoincrement())
 
-  post      Job  @relation(fields: [id_job], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  matchings User @relation(fields: [id_user], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  post Job  @relation(fields: [id_job], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user User @relation(fields: [id_user], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
-  id_user   Int
-  id_job    Int
-  id_author Int
+  id_user Int
+  id_job  Int
 
   created_at DateTime @default(now())
   updated_at DateTime @default(now())

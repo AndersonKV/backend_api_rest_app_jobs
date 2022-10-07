@@ -3,26 +3,23 @@ import { ValidatorConstraint, ValidatorConstraintInterface, ValidationArguments,
 import { PrismaService } from "../../database/PrismaService";
 import { CreateJobDto } from "../dto/create-job.dto";
 
-@ValidatorConstraint({ async: true })
+@ValidatorConstraint({ name: 'isIdJobExistConstraint', async: true })
 @Injectable()
-export class isIdUserExistConstraint implements ValidatorConstraintInterface {
+export class isIdJobExistConstraint implements ValidatorConstraintInterface {
     constructor(protected prismaService: PrismaService) { }
 
-    async validate(id_job: string, args: ValidationArguments) {
-        const id = Number(id_job);
+    async validate(id_job: number, args: ValidationArguments) {
+        if (!id_job) throw new HttpException(`id job vazio`, HttpStatus.BAD_REQUEST);
 
-        if (!id) throw new HttpException(`id vazio`, HttpStatus.BAD_REQUEST);
+        await this.prismaService.job.findUniqueOrThrow({ where: { id: id_job } }).catch(_ => {
+            throw new HttpException(`id jowb ${id_job} não encontrado`, HttpStatus.BAD_REQUEST);
+        })
 
-        const idJobExist = await this.prismaService.job.findMany({ where: { id } })
-
-        if (idJobExist.length) return true;
-
-        return false
-
+        return true
     }
 }
 
-export function idExist(validationOptions?: ValidationOptions) {
+export function isJobIdExist(validationOptions?: ValidationOptions) {
     return function (object: Object, propertyName: string) {
 
         registerDecorator({
@@ -30,7 +27,7 @@ export function idExist(validationOptions?: ValidationOptions) {
             propertyName: propertyName,
             options: validationOptions,
             constraints: [],
-            validator: isIdUserExistConstraint,
+            validator: isIdJobExistConstraint,
         });
     };
 }
