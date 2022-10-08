@@ -7,11 +7,7 @@ export class MatchingDeleteService {
     constructor(private prisma: PrismaService) { }
 
     async deleteById(id: number) {
-        await this.prisma.matching.delete({
-            where: {
-                id
-            }
-        }).catch(_ => {
+        await this.prisma.matching.delete({ where: { id } }).catch(_ => {
             throw new HttpException('id nao ' + id + ' encontrado', HttpStatus.BAD_REQUEST);
         })
     }

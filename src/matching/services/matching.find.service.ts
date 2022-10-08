@@ -9,8 +9,22 @@ export class MatchingFindService {
 
     async findAll() {
         return await this.prisma.matching.findMany({
-            include: {
-                post: {}
+            select: {
+                post: {
+                    include: {
+                        matchings: {
+                            select: {
+                                user: {
+                                    select: {
+                                        id: true,
+                                        name: true,
+                                        email: true,
+                                    }
+                                },
+                            }
+                        }
+                    }
+                }
             }
         })
 

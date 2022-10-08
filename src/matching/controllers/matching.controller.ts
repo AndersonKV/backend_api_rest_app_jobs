@@ -1,4 +1,5 @@
 import { Controller, Get, Request, Post, Body, Patch, Param, Delete, HttpCode } from '@nestjs/common';
+import { IsPublic } from 'src/auth/decorator/is-public.decorator';
 import { CreateMatchingDto } from '../dto/create-matching.dto';
 import { UpdateMatchingDto } from '../dto/update-matching.dto';
 import { MatchingCreateService } from '../services/matching.create.service';
@@ -8,7 +9,8 @@ import { MatchingUpdateService } from '../services/matching.update.service';
 
 @Controller('matching')
 export class MatchingController {
-    constructor(private readonly matchingCreateService: MatchingCreateService,
+    constructor(
+        private readonly matchingCreateService: MatchingCreateService,
         private readonly matchingFindService: MatchingFindService,
         private readonly matchingDeleteService: MatchingDeleteService,
         private readonly matchingUpdateService: MatchingUpdateService) { }
@@ -20,6 +22,7 @@ export class MatchingController {
         return this.matchingCreateService.create(id, createMatchingDto);
     }
 
+    @IsPublic()
     @Get()
     getAll() {
         return this.matchingFindService.findAll();
@@ -40,6 +43,7 @@ export class MatchingController {
         return this.matchingDeleteService.deleteById(+id);
     }
 
+    @IsPublic()
     @Delete()
     destroyer() {
         return this.matchingDeleteService.destroyer();

@@ -1,10 +1,10 @@
 import { Matching } from "@prisma/client";
-import { IsDate, IsInt, IsNotEmpty, Max, Min } from "class-validator";
+import { IsDate, IsEmpty, IsInt, IsNotEmpty, Max, Min } from "class-validator";
 import { isJobIdExist } from "src/job/constraint/isJobIdExist";
 import { isRoleUser } from "../constraint/isRoleUser";
 
 export class CreateMatchingDto {
-    @isRoleUser()
+    @IsEmpty({ message: "id deve ficar vazio" })
     id_user: number;
 
     @isJobIdExist()
@@ -20,8 +20,7 @@ export class CreateMatchingDto {
         const matching = Object.assign({}, data);
 
         this.id_job = matching.id_job;
-        this.id_user = matching.id_user
-
+        this.id_user = matching.id_user;
         this.created_at = new Date();
         this.updated_at = new Date();
     }

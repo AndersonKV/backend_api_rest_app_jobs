@@ -8,13 +8,15 @@ import { CreateMatchingDto } from "../dto/create-matching.dto";
 export class MatchingCreateService {
     constructor(private prisma: PrismaService) { }
 
-    async create(id: number, dataDto: CreateMatchingDto) {
+    async create(id_user: number, dataDto: CreateMatchingDto) {
 
-        const data = new CreateMatchingDto(dataDto);
+        const props = { id_user, ...dataDto }
 
-        const { id_user, id_job } = data;
+        const data = new CreateMatchingDto(props);
 
-        await this.prisma.user.findFirstOrThrow({ where: { id, AND: { role: EnumUserRole['user'] } } }).catch(_ => {
+        const { id_job } = data;
+
+        await this.prisma.user.findFirstOrThrow({ where: { id: id_user, AND: { role: EnumUserRole['user'] } } }).catch(_ => {
             throw new HttpException('id não existe ou você não tem autorização', HttpStatus.BAD_REQUEST);
         })
 
@@ -25,4 +27,5 @@ export class MatchingCreateService {
         return await this.prisma.matching.create({ data })
 
     }
+
 }
