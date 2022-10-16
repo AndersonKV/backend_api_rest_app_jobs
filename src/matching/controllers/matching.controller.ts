@@ -1,4 +1,5 @@
 import { Controller, Get, Request, Post, Body, Patch, Param, Delete, HttpCode } from '@nestjs/common';
+import { EnumUserRole } from '@prisma/client';
 import { IsPublic } from 'src/auth/decorator/is-public.decorator';
 import { CreateMatchingDto } from '../dto/create-matching.dto';
 import { UpdateMatchingDto } from '../dto/update-matching.dto';
@@ -18,14 +19,13 @@ export class MatchingController {
     @HttpCode(201)
     @Post()
     create(@Request() req: any, @Body() createMatchingDto: CreateMatchingDto) {
-        const id = req.user.id;
-        return this.matchingCreateService.create(id, createMatchingDto);
+        return this.matchingCreateService.create(req.user.id, createMatchingDto);
     }
 
     @IsPublic()
     @Get()
-    getAll() {
-        return this.matchingFindService.findAll();
+    getAll(@Param('role') role: EnumUserRole) {
+        return this.matchingFindService.findAll(role);
     }
 
     @Get(':id')
@@ -43,11 +43,11 @@ export class MatchingController {
         return this.matchingDeleteService.deleteById(+id);
     }
 
-    @IsPublic()
     @Delete()
     destroyer() {
         return this.matchingDeleteService.destroyer();
     }
 }
+
 
 

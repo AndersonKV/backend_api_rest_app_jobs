@@ -9,8 +9,7 @@ export class UserUpdateController {
     @HttpCode(201)
     @Patch()
     update(@Request() req: any, @Body() updateUserDto: UpdateUserDto) {
-        const id = req.user.id;
-        return this.userUpdateService.update(id, updateUserDto);
+        return this.userUpdateService.update(req.user.id, updateUserDto);
     }
 
 }

@@ -17,7 +17,6 @@ export class JobFindService {
                                     id: true,
                                     name: true,
                                     email: true,
-
                                 }
                             }
                         }
